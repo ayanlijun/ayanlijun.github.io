@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Dijkstra算法的简单python实现（附代码）, yanlijun pyhton 博客">
+    <meta name="keywords" content="yanlijun first title, yanlijun pyhton 博客">
     <meta name="description" content="中国矿业大学 | 计算数学">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -19,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Dijkstra算法的简单python实现（附代码） | yanlijun的博客</title>
+    <title>yanlijun first title | yanlijun的博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -340,12 +340,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Dijkstra算法的简单python实现（附代码）</h1>
+                    <h1 class="description center-align post-title">yanlijun first title</h1>
                 </div>
             </div>
         </div>
@@ -460,37 +460,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/Dijkstra/">
-                                <span class="chip bg-color">Dijkstra</span>
-                            </a>
-                        
-                            <a href="/tags/算法/">
-                                <span class="chip bg-color">算法</span>
-                            </a>
-                        
-                            <a href="/tags/python/">
-                                <span class="chip bg-color">python</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/算法/" class="post-category">
-                                算法
-                            </a>
-                        
-                            <a href="/categories/算法/python/" class="post-category">
-                                python
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -499,7 +474,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-19
+                    2022-01-28
                 </div>
                 
 
@@ -513,14 +488,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    580
+                    8
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    1 分
                 </div>
                 
 
@@ -535,81 +510,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Dijkstra算法介绍："><a href="#Dijkstra算法介绍：" class="headerlink" title="Dijkstra算法介绍："></a>Dijkstra算法介绍：</h2><p><a href="http://wiki.jikexueyuan.com/project/easy-learn-algorithm/dijkstra.html" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/easy-learn-algorithm/dijkstra.html</a></p>
-<p>按照Dijkstra算法的思路用python实现了一下，用邻接矩阵表示点与点之间边的权重。刚接触Dijkstra算法，网上python实现的程序太过复杂因此没看，如果程序有错误欢迎指出。</p>
-<p>以下图为例：<br><img src="https://img-blog.csdnimg.cn/20190321140749217.png" alt></p>
-<p>他的邻接矩阵如下：<br><img src="https://img-blog.csdnimg.cn/20190321141010935.png" alt></p>
-<p>=&gt;</p>
-<pre class="line-numbers language-Python"><code class="language-Python">Inf = float('inf')
-Adjacent = [[0, 1, 12, Inf, Inf, Inf], 
-            [Inf, 0, 9, 3, Inf, Inf], 
-            [Inf, Inf, 0, Inf, 5, Inf], 
-            [Inf, Inf, 4, 0, 13, 15], 
-            [Inf, Inf, Inf, Inf, 0, 4], 
-            [Inf, Inf, Inf, Inf, Inf, 0]]
-Src, Dst, N = 0, 5, 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p> Src表示起点的编号，Dst表示终点的编号，N表示结点个数.</p>
-<p> Dijkstra算法实现:</p>
-<pre class="line-numbers language-Python"><code class="language-Python">def dijstra(adj, src, dst, n):
-    dist = [Inf] * n
-    dist[src] = 0
-    book = [0] * n # 记录已经确定的顶点
-    # 每次找到起点到该点的最短途径
-    u = src
-    for _ in range(n-1):    # 找n-1次
-        book[u] = 1 # 已经确定
-        # 更新距离并记录最小距离的结点
-        next_u, minVal = None, float('inf')
-        for v in range(n):    # w
-            w = adj[u][v]
-            if w == Inf:    # 结点u和v之间没有边
-                continue
-            if not book[v] and dist[u] + w < dist[v]: # 判断结点是否已经确定了，
-                dist[v] = dist[u] + w
-                if dist[v] < minVal:
-                    next_u, minVal = v, dist[v]
-        # 开始下一轮遍历
-        u = next_u
-    print(dist)
-    return dist[dst]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>dist为起点-&gt;每个结点的距离的列表。（所以起点要赋值为0:dist[src] = 0），而 book的作用是记录已经确定了最短距离的结点的列表。整体程序如下：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">​
-
-Inf = float('inf')
-Adjacent = [[0, 1, 12, Inf, Inf, Inf],
-            [Inf, 0, 9, 3, Inf, Inf],
-            [Inf, Inf, 0, Inf, 5, Inf],
-            [Inf, Inf, 4, 0, 13, 15],
-            [Inf, Inf, Inf, Inf, 0, 4],
-            [Inf, Inf, Inf, Inf, Inf, 0]]
-Src, Dst, N = 0, 5, 6
-
-
-def dijstra(adj, src, dst, n):
-    dist = [Inf] * n
-    dist[src] = 0
-    book = [0] * n # 记录已经确定的顶点
-    # 每次找到起点到该点的最短途径
-    u = src
-    for _ in range(n-1):    # 找n-1次
-        book[u] = 1 # 已经确定
-        # 更新距离并记录最小距离的结点
-        next_u, minVal = None, float('inf')
-        for v in range(n):    # w
-            w = adj[u][v]
-            if w == Inf:    # 结点u和v之间没有边
-                continue
-            if not book[v] and dist[u] + w < dist[v]: # 判断结点是否已经确定了，
-                dist[v] = dist[u] + w
-                if dist[v] < minVal:
-                    next_u, minVal = v, dist[v]
-        # 开始下一轮遍历
-        u = next_u
-    print(dist)
-    return dist[dst]
-
-dijstra(Adjacent, Src, Dst, N)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>运行结果为：[0, 1, 8, 4, 13, 17]</p>
+                <p>markdown语法，有哪些</p>
+<pre><code>python jjjjj</code></pre><p><img src="/images/pasted-0.png" alt="upload successful"></p>
 
             </div>
             <hr/>
@@ -635,7 +537,7 @@ dijstra(Adjacent, Src, Dst, N)<span aria-hidden="true" class="line-numbers-rows"
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://tangg555.github.io/2020/05/19/2019-03-21-dijkstra-algorithms/">https://tangg555.github.io/2020/05/19/2019-03-21-dijkstra-algorithms/</a>
+                    <a href="https://tangg555.github.io/2022/01/28/yanlijun-first-title/">https://tangg555.github.io/2022/01/28/yanlijun-first-title/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -672,19 +574,7 @@ dijstra(Adjacent, Src, Dst, N)<span aria-hidden="true" class="line-numbers-rows"
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Dijkstra/">
-                                    <span class="chip bg-color">Dijkstra</span>
-                                </a>
-                            
-                                <a href="/tags/算法/">
-                                    <span class="chip bg-color">算法</span>
-                                </a>
-                            
-                                <a href="/tags/python/">
-                                    <span class="chip bg-color">python</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -853,7 +743,7 @@ dijstra(Adjacent, Src, Dst, N)<span aria-hidden="true" class="line-numbers-rows"
         repo: 'ayanlijun.github.io',
         owner: 'ayanlijun',
         admin: ["ayanlijun"],
-        id: '2020-05-19T18-43-00',
+        id: '2022-01-28T15-47-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -877,9 +767,10 @@ dijstra(Adjacent, Src, Dst, N)<span aria-hidden="true" class="line-numbers-rows"
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/01/28/yanlijun-first-title/">
                     <div class="card-image">
@@ -899,9 +790,9 @@ python jjjjj
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -910,6 +801,7 @@ python jjjjj
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -917,7 +809,7 @@ python jjjjj
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2020/05/19/2019-03-21-dijkstra-algorithms/">
@@ -955,7 +847,6 @@ python jjjjj
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
